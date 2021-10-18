@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31702.278
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoftWareProject", "SoftWareProject\SoftWareProject.csproj", "{BDDDE07E-1C39-4532-8F4F-4E414B6175D5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{37705DC4-B49C-4198-B119-A898A4228C10}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DALTests", "DALTests\DALTests.csproj", "{69E24489-4B09-45CC-982B-06CB1082EEA1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BDDDE07E-1C39-4532-8F4F-4E414B6175D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDDDE07E-1C39-4532-8F4F-4E414B6175D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDDDE07E-1C39-4532-8F4F-4E414B6175D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDDDE07E-1C39-4532-8F4F-4E414B6175D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37705DC4-B49C-4198-B119-A898A4228C10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37705DC4-B49C-4198-B119-A898A4228C10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37705DC4-B49C-4198-B119-A898A4228C10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37705DC4-B49C-4198-B119-A898A4228C10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69E24489-4B09-45CC-982B-06CB1082EEA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69E24489-4B09-45CC-982B-06CB1082EEA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69E24489-4B09-45CC-982B-06CB1082EEA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69E24489-4B09-45CC-982B-06CB1082EEA1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4C788847-BDBF-4E36-AE8A-00C9C7FF09D4}
+	EndGlobalSection
+EndGlobal
