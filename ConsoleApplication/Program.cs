@@ -49,7 +49,8 @@ namespace ConsoleApplication
         }
         static void Main(string[] args)
         {
-            IMenu[] arrayMenu = new IMenu[] { new UserMenu(), new GoodMenu(), new BoughtGoodMenu(), new BidMenu() };
+            string connstring = ConfigurationManager.ConnectionStrings["Auction"].ConnectionString;
+            IMenu[] arrayMenu = new IMenu[] { new UserMenu(connstring), new GoodMenu(connstring), new BoughtGoodMenu(connstring), new BidMenu(connstring) };
             while (true)
             {
                 Console.Clear();

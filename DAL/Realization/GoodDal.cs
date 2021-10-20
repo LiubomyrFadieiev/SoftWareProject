@@ -11,9 +11,9 @@ namespace DAL.Realization
     public class GoodDal : IGoodDal
     {
         string connString;
-        public GoodDal()
+        public GoodDal(string connString)
         {
-            connString = ConfigurationManager.ConnectionStrings["Auction"].ConnectionString;
+            this.connString = connString;
         }
         public int ChangeGoodName(int id, string name)
         {

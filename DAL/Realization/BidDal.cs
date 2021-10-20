@@ -12,9 +12,9 @@ namespace DAL.Realization
     {
         string connString;
 
-        public BidDal()
+        public BidDal(string connString)
         {
-            connString = ConfigurationManager.ConnectionStrings["Auction"].ConnectionString;
+            this.connString = connString;
         }
         public int ChangeBid(int user_id, int good_id, double price)
         {

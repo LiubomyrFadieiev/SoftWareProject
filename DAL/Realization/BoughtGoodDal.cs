@@ -11,9 +11,9 @@ namespace DAL.Realization
     {
         string connString;
 
-        public BoughtGoodDal()
+        public BoughtGoodDal(string connString)
         {
-            connString = ConfigurationManager.ConnectionStrings["Auction"].ConnectionString;
+            this.connString = connString;
         }
 
         public int ChangeBGoodUser(int bgood_id, int user_id)

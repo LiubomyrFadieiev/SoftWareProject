@@ -2,6 +2,7 @@
 using DAL.Realization;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Text;
 
 namespace ConsoleApplication.Menus
@@ -10,14 +11,10 @@ namespace ConsoleApplication.Menus
     {
         public string[] arrayOfOptions { get; set; }
         UserDal userDal;
-        BoughtGoodDal bgoodDal;
-        BidDal bidDal;
-        public UserMenu()
+        public UserMenu(string connString)
         {
             arrayOfOptions = new string[] { "1.Show all users;", "2.Search user by id;", "3.Create user;", "4.Change user's name;", "5.Delete user." };
-            userDal = new UserDal();
-            bgoodDal = new BoughtGoodDal();
-            bidDal = new BidDal();
+            userDal = new UserDal(connString);
         }
         public int ChangeRow()
         {

@@ -10,10 +10,10 @@ namespace ConsoleApplication.Menus
     {
         readonly public string[] arrayOfOptions;
         BidDal bidDal;
-        public BidMenu()
+        public BidMenu(string connString)
         {
             arrayOfOptions = new string[] { "1.Show all bids;", "2.Search bid by id;", "3.Create bid;", "4.Change bid;", "5.Delete bid." };
-            bidDal = new BidDal();
+            bidDal = new BidDal(connString);
 
         }
         public int ChangeRow()

@@ -3,6 +3,7 @@ using DAL.DTO;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Configuration;
 
 namespace ConsoleApplication.Menus
 {
@@ -10,12 +11,10 @@ namespace ConsoleApplication.Menus
     {
         readonly public string[] arrayOfOptions;
         GoodDal goodDal;
-        BidDal bidDal;
-        public GoodMenu()
+        public GoodMenu(string connString)
         {
             arrayOfOptions = new string[] { "1.Show all goods;", "2.Search good by id;", "3.Create good;", "4.Change good's name;", "5.Delete good." };
-            goodDal = new GoodDal();
-            bidDal = new BidDal();
+            goodDal = new GoodDal(connString);
         }
         public int ChangeRow()
         {

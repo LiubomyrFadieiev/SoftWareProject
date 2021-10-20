@@ -11,9 +11,9 @@ namespace DAL.Realization
     public class UserDal : IUserDal
     {
         string connString;
-        public UserDal()
+        public UserDal(string connString)
         {
-            connString = ConfigurationManager.ConnectionStrings["Auction"].ConnectionString;
+            this.connString = connString;
         }
         public int ChangeUserName(int user_id, string fName, string lName)
         {

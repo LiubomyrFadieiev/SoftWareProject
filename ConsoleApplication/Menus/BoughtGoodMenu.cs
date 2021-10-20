@@ -9,10 +9,10 @@ namespace ConsoleApplication.Menus
     {
         readonly public string[] arrayOfOptions;
         BoughtGoodDal bgoodDal;
-        public BoughtGoodMenu()
+        public BoughtGoodMenu(string connString)
         {
             arrayOfOptions = new string[] { "1.Show all bought goods;", "2.Search bought good by id;", "3.Create bought good;", "4.Change bought good's user;", "5.Delete bought good." };
-            bgoodDal = new BoughtGoodDal();
+            bgoodDal = new BoughtGoodDal(connString);
         }
         public int ChangeRow()
         {
