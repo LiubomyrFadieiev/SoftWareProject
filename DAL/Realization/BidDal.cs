@@ -94,13 +94,13 @@ namespace DAL.Realization
             return bids;
         }
 
-        public BidDTO GetBidById(int id)
+        public BidDTO GetBidById(int user_id, int good_id)
         {
             BidDTO bid;
             using (var conn = new NpgsqlConnection(connString))
             {
                 conn.Open();
-                string commandText = String.Format("SELECT u.firstName, u.lastName, g.goodsname, g.goodsdesc, g.startPrice, b.user_id, b.good_id, b.bid, b.insertTime, b.lastUpdateTime FROM bids AS b JOIN goods g on b.good_id = g.good_id JOIN users AS u ON b.user_id = u.user_id WHERE b.user_id = {0} ORDER BY b.user_id, b.good_id", id);
+                string commandText = String.Format("SELECT u.firstName, u.lastName, g.goodsname, g.goodsdesc, g.startPrice, b.user_id, b.good_id, b.bid, b.insertTime, b.lastUpdateTime FROM bids AS b JOIN goods g on b.good_id = g.good_id JOIN users AS u ON b.user_id = u.user_id WHERE b.user_id = {0} AND b.good_id = {1} ORDER BY b.user_id, b.good_id", user_id,good_id);
                 using (var comm = new NpgsqlCommand(commandText, conn))
                 using (var reader = comm.ExecuteReader())
                 {

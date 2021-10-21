@@ -70,9 +70,11 @@ namespace ConsoleApplication.Menus
         public void ShowRowByID()
         {
             Console.Write("Please enter user's id\nid = ");
-            int id = Int32.Parse(Console.ReadLine());
+            int user_id = Int32.Parse(Console.ReadLine());
+            Console.Write("Please enter good's id\nid = ");
+            int good_id = Int32.Parse(Console.ReadLine());
             string fullName;
-            BidDTO b = bidDal.GetBidById(id);
+            BidDTO b = bidDal.GetBidById(user_id,good_id);
             fullName = String.Format((string)b.userInformation[(int)UserInfo.firstName] + " " + (string)b.userInformation[(int)UserInfo.lastName]);
             Console.WriteLine("{0} bit {1}", fullName, b.goodInformation[(int)GoodInfo.name]);
             Console.WriteLine("ID of user: {0}\nID of good: {1}\nSize of bid: {2}\nDescription: {3}\nInsert Time: {4}\nLast Update Time: {5}\n",

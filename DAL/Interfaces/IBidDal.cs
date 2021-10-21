@@ -8,7 +8,7 @@ namespace DAL.Interfaces
     interface IBidDal
     {
         public List<BidDTO> GetAllBids();
-        public BidDTO GetBidById(int id);
+        public BidDTO GetBidById(int user_id, int good_id);
         public int CreateBid(BidDTO bid);
         public int ChangeBid(int user_id, int good_id, double price);
         public int DeleteBid(int user_id, int good_id);
