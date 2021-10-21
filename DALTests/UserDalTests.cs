@@ -14,7 +14,7 @@ namespace DALTests
         [SetUp]
         public void Setup()
         {
-            connString = ConfigurationManager.ConnectionStrings["test"].ConnectionString;
+            connString = "Server=localhost;Username=postgres;Database=SoftwareTest;Port=5432;Password=admin;SSLMode=Prefer";
         }
 
         [Test]
