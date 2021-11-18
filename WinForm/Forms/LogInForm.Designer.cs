@@ -58,21 +58,23 @@ namespace WinForm.Forms
             // 
             this.mailText.Location = new System.Drawing.Point(62, 148);
             this.mailText.Name = "mailText";
-            this.mailText.Size = new System.Drawing.Size(150, 31);
+            this.mailText.Size = new System.Drawing.Size(315, 31);
             this.mailText.TabIndex = 2;
+            this.mailText.Text = "adventuretime@gmail.com";
             // 
             // passText
             // 
             this.passText.Location = new System.Drawing.Point(62, 210);
             this.passText.Name = "passText";
-            this.passText.Size = new System.Drawing.Size(150, 31);
+            this.passText.Size = new System.Drawing.Size(315, 31);
             this.passText.TabIndex = 3;
+            this.passText.Text = "12345678";
             // 
             // submitButton
             // 
             this.submitButton.Location = new System.Drawing.Point(62, 272);
             this.submitButton.Name = "submitButton";
-            this.submitButton.Size = new System.Drawing.Size(150, 34);
+            this.submitButton.Size = new System.Drawing.Size(315, 34);
             this.submitButton.TabIndex = 4;
             this.submitButton.Text = "Log In";
             this.submitButton.UseVisualStyleBackColor = true;
@@ -82,7 +84,7 @@ namespace WinForm.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(322, 450);
+            this.ClientSize = new System.Drawing.Size(448, 450);
             this.Controls.Add(this.submitButton);
             this.Controls.Add(this.passText);
             this.Controls.Add(this.mailText);
@@ -104,4 +106,3 @@ namespace WinForm.Forms
         private System.Windows.Forms.Button submitButton;
     }
 }
-

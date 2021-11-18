@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using WinForm.Forms;
 
@@ -18,8 +15,14 @@ namespace WinForm
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
-            Application.Run(new LogInForm());
+            
+            bool check = true;
+            while (check)
+            {
+                MainForm form = new MainForm();
+                Application.Run(form);
+                check = form.isLogOut;
+            }
         }
     }
 }

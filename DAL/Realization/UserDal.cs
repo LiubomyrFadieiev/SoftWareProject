@@ -123,6 +123,32 @@ namespace DAL.Realization
                 return user;
             }
         }
+        public UserDTO GetUserByLogin(string login)
+        {
+            UserDTO user;
+            using (var conn = new NpgsqlConnection(connString))
+            {
+                conn.Open();
+                string commandText = String.Format("SELECT u.user_id, u.firstName, u.lastName, u.\"e-mail\", u.\"password\", u.insertTime, u.lastSignedInTime, u.lastUpdateTime FROM users u WHERE u.\"e-mail\" = @login ORDER BY u.user_id");
+                using (var command = new NpgsqlCommand(commandText, conn))
+                {
+                    command.Parameters.AddWithValue("login", login);
+                    using (var reader = command.ExecuteReader())
+                    {
+
+                        reader.Read();
+                        user = new UserDTO(
+                                    reader.GetInt32(0), reader.GetString(1), reader.GetString(2),
+                                    reader.GetString(3), reader[4].ToString(),
+                                    reader.GetFieldValue<DateTime>(5),
+                                    reader.GetFieldValue<DateTime>(6),
+                                    reader.GetFieldValue<DateTime>(7)
+                            );
+                    }
+                    return user;
+                }
+            }
+        }
         public (bool,bool) LogIn (string login, string password)
         {
             byte[] pass; string salt;

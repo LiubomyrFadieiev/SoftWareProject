@@ -121,5 +121,38 @@ namespace DAL.Realization
             }
             return bgood;
         }
+        public int ChangeGoodState(BoughtGoodDTO bgood, GoodDTO good)
+        {
+            int rows = 0;
+            using (var conn = new NpgsqlConnection(connString))
+            {
+               
+                conn.Open();
+                var tact = conn.BeginTransaction();
+                try
+                {
+                    var comm = new NpgsqlCommand("INSERT INTO boughtgoods (goodsname, goodsdesc, startprice, endprice, user_id) VALUES (@name, @desc, @sprice, @eprice, @id)",conn);
+                    comm.Parameters.AddWithValue("name", bgood.goodsName);
+                    comm.Parameters.AddWithValue("desc", bgood.goodsDesc);
+                    comm.Parameters.AddWithValue("sprice", bgood.startPrice);
+                    comm.Parameters.AddWithValue("eprice", bgood.endPrice);
+                    comm.Parameters.AddWithValue("id", bgood.user_id);
+                    rows += comm.ExecuteNonQuery();
+
+                    comm = new NpgsqlCommand("DELETE FROM goods WHERE good_id = @id", conn);
+                    comm.Parameters.AddWithValue("id", good.good_id);
+                    rows += comm.ExecuteNonQuery();
+
+                    tact.Commit();
+                }
+                catch(Exception e)
+                {
+                    string en = e.Message;
+                    tact.Rollback();
+                }
+                conn.Close();
+            }
+            return rows;
+        }
     }
 }
