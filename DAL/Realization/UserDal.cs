@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Text;
+using System.Security.Cryptography;
 
 namespace DAL.Realization
 {
@@ -121,6 +122,43 @@ namespace DAL.Realization
                 }
                 return user;
             }
+        }
+        public (bool,bool) LogIn (string login, string password)
+        {
+            byte[] pass; string salt;
+            using (var conn = new NpgsqlConnection(connString))
+            {
+                conn.Open(); 
+                using (var command = new NpgsqlCommand("SELECT password, salt FROM users WHERE \"e-mail\" = @login", conn))
+                {
+                    command.Parameters.AddWithValue("login", login);
+                    var reader = command.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        reader.Read();
+                        pass = (byte[])reader[0];
+                        salt = reader.GetGuid(1).ToString();
+                    }
+                    else
+                    {
+                        return (false, false);
+                    }
+                }
+            }
+            return (true, ComparePasswords(password, salt, pass));
+        }
+        private bool ComparePasswords(string password, string salt, byte[] pass)
+        {
+            var sha = SHA512.Create();
+            byte[] ourPass = sha.ComputeHash(Encoding.UTF8.GetBytes(password + salt));
+            for(int i = 0; i<pass.Length; i++)
+            {
+                if (ourPass[i] != pass[i])
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }
