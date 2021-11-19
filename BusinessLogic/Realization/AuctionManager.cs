@@ -2,23 +2,23 @@
 using System.Collections.Generic;
 using System.Text;
 using DAL.DTO;
-using DAL.Realization;
+using DAL.Interfaces;
 using BusinessLogic.Interfaces;
 
 namespace BusinessLogic.Realization
 {
     public class AuctionManager : IAuctionManager
     {
-        UserDal uDal;
-        GoodDal gDal;
-        BidDal bDal;
-        BoughtGoodDal bgDal;
-        public AuctionManager(string connString)
+        IUserDal uDal;
+        IGoodDal gDal;
+        IBidDal bDal;
+        IBoughtGoodDal bgDal;
+        public AuctionManager(IUserDal userDal, IGoodDal goodDal, IBidDal bidDal, IBoughtGoodDal boughtGoodDal)
         {
-            uDal = new UserDal(connString);
-            gDal = new GoodDal(connString);
-            bDal = new BidDal(connString);
-            bgDal = new BoughtGoodDal(connString);
+            uDal = userDal;
+            gDal = goodDal;
+            bDal = bidDal;
+            bgDal = boughtGoodDal;
         }
 
         public List<GoodDTO> GetAllGoods()
@@ -56,15 +56,8 @@ namespace BusinessLogic.Realization
             List<BidDTO> bids = bDal.GetAllBids();
             return bids.FindAll(b => b.user_id == user.user_id);
         }
-
-        public UserDTO GetAuthorisedUser(string login)
+        public bool InsertBid(BidDTO bid)
         {
-            return uDal.GetUserByLogin(login);
-        }
-
-        public bool InsertBid(double price, int goodid, int userid)
-        {
-            BidDTO bid = new BidDTO(userid, goodid, price);
             return bDal.CreateBid(bid) > 0;
         }
 
@@ -72,11 +65,15 @@ namespace BusinessLogic.Realization
         {
             return bDal.ChangeBid(userid, goodid, price) > 0;
         }
-        public bool BuyItem(GoodDTO good, UserDTO buyer, double price)
+        public bool BuyItem(GoodDTO good, BoughtGoodDTO bgood)
         {
-            BoughtGoodDTO bgood = new BoughtGoodDTO(good.goodsName, good.goodsDesc, good.startPrice, price, buyer.user_id);
             return bgDal.ChangeGoodState(bgood, good) > 0;
         }
+        public UserDTO GetAuthorisedUser(string login)
+        {
+            return uDal.GetUserByLogin(login);
+        }
+
         public List<BoughtGoodDTO> GetUsersGoods(UserDTO user)
         {
             List<BoughtGoodDTO> bgoods = bgDal.GetAllBGoods();

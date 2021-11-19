@@ -173,6 +173,51 @@ namespace DAL.Realization
             }
             return (true, ComparePasswords(password, salt, pass));
         }
+
+        public int SetSalt(UserDTO user)
+        {
+            int rows;
+            using (var conn = new NpgsqlConnection(connString))
+            {
+                using(var comm = new NpgsqlCommand("UPDATE users SET salt = uuid_generate_v4(), lastUpdateTime = NOW()::timestamp(0) WHERE \"password\" = @pass", conn))
+                {
+                    comm.Parameters.AddWithValue("pass", "");
+                    rows = comm.ExecuteNonQuery();
+                }
+            }
+            return rows;
+        }
+
+        public string GetSalt(UserDTO user)
+        {
+            string salt;
+            using(var conn = new NpgsqlConnection(connString))
+            {
+                using(var comm = new NpgsqlCommand("SELECT salt FROM users WHERE \"password\" = @pass"))
+                {
+                    comm.Parameters.AddWithValue("pass", "");
+                    var reader = comm.ExecuteReader();
+                    reader.Read();
+                    salt = reader[0].ToString();
+               }
+            }
+            return salt;
+        }
+
+        public int UpdateUserPassword(byte[] pass)
+        {
+            int rows;
+            using(var conn = new NpgsqlConnection(connString))
+            {
+                using(var comm = new NpgsqlCommand("UPDATE users SET \"password\" = @pass, lastUpdateTime = NOW()::timestamp(0) WHERE \"password\" = '' ", conn))
+                {
+                    comm.Parameters.AddWithValue("pass", pass);
+                    rows = comm.ExecuteNonQuery();
+                }
+            }
+            return rows;
+        }
+
         private bool ComparePasswords(string password, string salt, byte[] pass)
         {
             var sha = SHA512.Create();

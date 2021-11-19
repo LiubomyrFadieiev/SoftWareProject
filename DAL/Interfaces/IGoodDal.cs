@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DAL.Interfaces
 {
-    interface IGoodDal
+    public interface IGoodDal
     {
         public List<GoodDTO> GetAllGoods();
         public GoodDTO GetGoodByID(int id);

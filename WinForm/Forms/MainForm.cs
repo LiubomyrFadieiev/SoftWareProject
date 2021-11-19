@@ -5,7 +5,6 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Linq;
-using System.Configuration;
 using System.Windows.Forms;
 using DAL.DTO;
 using BusinessLogic.Interfaces;
@@ -20,13 +19,13 @@ namespace WinForm.Forms
         IAuctionManager auctionManager;
 
 
-        public MainForm()
+        public MainForm(IAuctionManager aucm, IAuthManager authm)
         {
-            LogInForm login = new LogInForm();
+            LogInForm login = new LogInForm(authm);
             if (login.ShowDialog() == DialogResult.OK)
             {
                 isLogOut = false;
-                auctionManager = new AuctionManager(ConnectionString.connString);
+                auctionManager = aucm;
                 authorisedUser = auctionManager.GetAuthorisedUser(login.authorisedlogin);
                 InitializeComponent();
                 RefreshGoodsGrid(auctionManager.GetAllGoods());
@@ -103,7 +102,7 @@ namespace WinForm.Forms
         private void GetBidForm(int goodid)
         {
             GoodDTO good = auctionManager.GetGoodById(goodid);
-            BidsShowForm bform = new BidsShowForm(good, authorisedUser);
+            BidsShowForm bform = new BidsShowForm(auctionManager, good, authorisedUser);
             bform.Show();
         }
 
@@ -122,9 +121,5 @@ namespace WinForm.Forms
         {
             RefreshBGoodsGrid(auctionManager.GetUsersGoods(authorisedUser));
         }
-    }
-    public static class ConnectionString
-    {
-        public static readonly string connString = ConfigurationManager.ConnectionStrings["Auction"].ConnectionString;
     }
 }

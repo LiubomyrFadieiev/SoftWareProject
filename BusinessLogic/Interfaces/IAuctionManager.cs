@@ -14,9 +14,9 @@ namespace BusinessLogic.Interfaces
         public GoodDTO GetGoodById(int id);
         public List<BidDTO> GetGoodsBids(GoodDTO good);
         public List<BidDTO> GetUsersBids(UserDTO user);
-        public bool InsertBid(double price, int goodid, int userid);
+        public bool InsertBid(BidDTO bid);
         public bool UpdateBid(double price, int goodid, int userid);
-        public bool BuyItem(GoodDTO good, UserDTO buyer, double price);
+        public bool BuyItem(GoodDTO good, BoughtGoodDTO bgood);
         public List<BoughtGoodDTO> GetUsersGoods(UserDTO user);
     }
 }

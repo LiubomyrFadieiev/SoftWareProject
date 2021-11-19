@@ -17,17 +17,18 @@ namespace WinForm.Forms
         GoodDTO good;
         UserDTO user;
         IAuctionManager auctionManager;
-        public BidsShowForm()
+        public BidsShowForm(IAuctionManager auctionManager)
         {
             InitializeComponent();
+            this.auctionManager = auctionManager;
         }
-        public BidsShowForm(GoodDTO good, UserDTO user)
+        public BidsShowForm(IAuctionManager aucm, GoodDTO good, UserDTO user)
         {
+            auctionManager = aucm;
             this.good = good;
             this.user = user;
             InitializeComponent();
             this.Text = "List of Bids - " + good.goodsName; 
-            auctionManager = new AuctionManager(ConnectionString.connString);
             RefreshGrid(auctionManager.GetGoodsBids(good));
         }
         private void RefreshGrid(List<BidDTO> bids)
@@ -57,7 +58,8 @@ namespace WinForm.Forms
                 }
                 else
                 {
-                    auctionManager.InsertBid(form.bid, good.good_id, user.user_id);
+                    BidDTO bid = new BidDTO(user.user_id, good.good_id, form.bid);
+                    auctionManager.InsertBid(bid);
                 }
                 
                 RefreshGrid(auctionManager.GetGoodsBids(good));
@@ -77,7 +79,8 @@ namespace WinForm.Forms
                 bids.Sort((b1,b2) => b1.bid.CompareTo(b2.bid));
                 if (bids.Last().user_id == user.user_id)
                 {
-                    auctionManager.BuyItem(good, user, bids.Last().bid);
+                    BoughtGoodDTO bgood = new BoughtGoodDTO(good.goodsName, good.goodsDesc, good.startPrice, bids.Last().bid, user.user_id);
+                    auctionManager.BuyItem(good, bgood);
                     MessageBox.Show("Item is successfully buyed. Congratulations!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Close();
                 }

@@ -16,27 +16,36 @@ namespace WinForm.Forms
     public partial class LogInForm : Form
     {
         public string authorisedlogin;
-        public LogInForm()
+        private IAuthManager authManager;
+        public LogInForm(IAuthManager authm)
         {
             InitializeComponent();
+            authManager = authm;
         }
 
         private void submitButton_Click(object sender, EventArgs e)
         {
             string connString = ConfigurationManager.ConnectionStrings["Auction"].ConnectionString;
-            IAuthManager authManager = new AuthManager(connString);
             string login = mailText.Text;
             string pass = passText.Text;
-            (bool, string) message = authManager.LogIn(login, pass);
+            (bool, bool) message = authManager.LogIn(login, pass);
             if (message.Item1)
             {
                 authorisedlogin = login;
-                MessageBox.Show(message.Item2, "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.DialogResult = DialogResult.OK;
+                if (message.Item2)
+                {
+                    MessageBox.Show("Autorization was successful.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.DialogResult = DialogResult.OK;
+                }
+                else
+                {
+                    MessageBox.Show("Password is incorrect.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    this.DialogResult = DialogResult.No;
+                }
             }
             else
             {
-                MessageBox.Show(message.Item2, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Invalid credentials.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.DialogResult = DialogResult.No;
             }
         }

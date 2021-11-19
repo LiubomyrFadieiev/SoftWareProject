@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DALTests", "DALTests\DALTes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessLogic", "BusinessLogic\BusinessLogic.csproj", "{AE2E9541-228D-4E12-A5D4-A0481CB4E929}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinForm", "WinForm\WinForm.csproj", "{89F8F507-ACCC-4550-8C00-4EC9334D0F0A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinForm", "WinForm\WinForm.csproj", "{89F8F507-ACCC-4550-8C00-4EC9334D0F0A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLLTests", "BLLTests\BLLTests.csproj", "{4DDE8EEF-9515-436E-92ED-7BB21C96946F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{89F8F507-ACCC-4550-8C00-4EC9334D0F0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{89F8F507-ACCC-4550-8C00-4EC9334D0F0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{89F8F507-ACCC-4550-8C00-4EC9334D0F0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DDE8EEF-9515-436E-92ED-7BB21C96946F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DDE8EEF-9515-436E-92ED-7BB21C96946F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DDE8EEF-9515-436E-92ED-7BB21C96946F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DDE8EEF-9515-436E-92ED-7BB21C96946F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
