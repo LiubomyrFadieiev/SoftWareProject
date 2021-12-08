@@ -35,5 +35,9 @@ namespace DAL.DTO
             goodsDesc = desc;
             startPrice = price;
         }
+        public override string ToString()
+        {
+            return $"Name: {goodsName};\nInformation: {goodsDesc};\nStart Price: {startPrice}";
+        }
     }
 }

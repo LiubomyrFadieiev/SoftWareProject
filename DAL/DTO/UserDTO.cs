@@ -31,5 +31,13 @@ namespace DAL.DTO
             firstName = fName; lastName = lName;
             eMail = mail; password = pass;
         }
+        public UserDTO()
+        {
+
+        }
+        public override string ToString()
+        {
+            return $"{eMail},{firstName},{lastName}";
+        }
     }
 }

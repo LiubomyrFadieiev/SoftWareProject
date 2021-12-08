@@ -1,0 +1,64 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style x:Key="WindowBackground">
+        <Setter Property="Panel.Background" Value="Silver"/>
+    </Style>
+    <Style TargetType="Grid">
+        <Setter Property="Background">
+            <Setter.Value>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#22577E" Offset="0.2"/>
+                <GradientStop Color="#5584AC" Offset="0.5"/>
+                <GradientStop Color="#95D1CC" Offset="0.8"/>
+            </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style TargetType="Label">
+        <Setter Property="Foreground" Value="#F6F2D4"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+    </Style>
+    <Style x:Key="WinterBox">
+        <Setter Property="ItemsControl.BorderThickness" Value="7"/>
+        <Setter Property="ItemsControl.BorderBrush" Value="Black"/>
+        <Setter Property="ItemsControl.FontSize" Value="24"/>
+        <Style.Triggers>
+            <Trigger Property="ItemsControl.IsFocused" Value="True">
+                <Setter Property="ItemsControl.BorderThickness" Value="5"/>
+                <Setter Property="ItemsControl.BorderBrush" Value="#22577E"/>
+            </Trigger>
+            <Trigger Property="Validation.HasError" Value="True">
+                <Setter Property="ItemsControl.ToolTip"
+                Value="{Binding RelativeSource={RelativeSource Self},
+                    Path=(Validation.Errors)[0].ErrorContent}" />
+                <Setter Property="ItemsControl.Foreground" Value="Red" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style TargetType="Button">
+        <Setter Property="Background" Value="#5584AC"/>
+        <Setter Property="Foreground" Value="#F6F2D4"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="BorderBrush" Value="#22577E"/>
+        <Setter Property="BorderThickness" Value="5"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="BorderThickness" Value="7"/>
+                <Setter Property="Foreground" Value="#22577E"/>
+            </Trigger>
+            <Trigger Property="ClickMode" Value="Press">
+                <Setter Property="BorderThickness" Value="7"/>
+                <Setter Property="Background" Value="#F6F2D4"/>
+                <Setter Property="Foreground" Value="#5584AC"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style TargetType="TabItem">
+        <Setter Property="FontSize" Value="14"/>
+    </Style>
+    <Style TargetType="Separator">
+        <Setter Property="Margin" Value="10 3 10 3"/>
+    </Style>
+</ResourceDictionary>

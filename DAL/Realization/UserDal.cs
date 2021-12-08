@@ -67,7 +67,7 @@ namespace DAL.Realization
 
                     tact.Commit();
                 }
-                catch (Exception ex)
+                catch
                 {
                     tact.Rollback();
                 }
