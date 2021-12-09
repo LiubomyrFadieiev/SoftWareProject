@@ -3,9 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WpfApp.Windows" xmlns:viewmodels="clr-namespace:WpfApp.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:MainWindowViewModel}"
+        xmlns:local="clr-namespace:WpfApp.Windows" 
+        xmlns:viewmodels="clr-namespace:WpfApp.ViewModels" 
+        d:DataContext="{d:DesignInstance Type=viewmodels:MainWindowViewModel}"
         mc:Ignorable="d"
-        Title="Trading Company" Height="450" Width="800" Icon="\Images\icon.png">
+        Title="Trading Company" Height="450" Width="800">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -13,32 +15,37 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <Grid>
-        <TabControl>
+    <Grid Style="{StaticResource GridBackground}">
+        <TabControl SelectedItem="{Binding SelectedTab}">
             <TabItem Header="Auctions">
                 <StackPanel>
                     <ToolBar>
-                        <TextBox x:Name="search" MinWidth="150" MaxWidth="150" Text="{Binding SearchString}"/>
+                        <TextBox x:Name="search" MinWidth="150" MaxWidth="150" 
+                                 Text="{Binding SearchString}"/>
                         <ComboBox MinWidth="100" SelectedValue="{Binding Type}">
                             <ComboBoxItem Content="Name"/>
                             <ComboBoxItem Content="Description"/>
                         </ComboBox>
                         <Separator/>
-                        <Button x:Name="searchButton" Command="{Binding searchCommand}">Search</Button>
+                        <Button x:Name="searchButton" Command="{Binding SearchCommand}">Search</Button>
                         <Separator/>
-                        <Button x:Name="refreshGoodButton" Command="{Binding refreshGoods}">Refresh</Button>
+                        <Button x:Name="refreshGoodButton" Command="{Binding RefreshGoods}">Refresh</Button>
                         <Separator/>
-                        <Button x:Name="showBidsFromGoodButton" Command="{Binding showGoodBids}">Show Bids</Button>
-                        <Separator/>
-                        <Button x:Name="logOutButton">Log out</Button>
+                        <Button x:Name="logOutButton" Command="{Binding LogOutCommand}">Log out</Button>
                     </ToolBar>
-                    <DataGrid x:Name="goodDataGrid" AutoGenerateColumns="True" 
+                    <DataGrid x:Name="goodDataGrid" AutoGenerateColumns="False" 
                             ItemsSource="{Binding GoodList}"
                               SelectedItem="{Binding SelectedGood}"
                               IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Id" Binding="{Binding Path=good_id}" />
+                            <DataGridTextColumn Header="Name" Binding="{Binding Path=goodsName}" />
+                            <DataGridTextColumn Header="Description" Binding="{Binding Path=goodsDesc}" />
+                            <DataGridTextColumn Header="Start Price" Binding="{Binding Path=startPrice}" />
+                        </DataGrid.Columns>
                         <DataGrid.InputBindings>
                             <MouseBinding MouseAction="LeftDoubleClick"
-                                          Command="{Binding showGoodBids}">
+                                          Command="{Binding ShowGoodBids}">
                             </MouseBinding>
                         </DataGrid.InputBindings>
                     </DataGrid>
@@ -50,9 +57,10 @@
                         <Label MinWidth="150" Content="{Binding Greetings}" Background="#5584AC" 
                                BorderBrush="#22577E" BorderThickness="2"/>
                         <Separator/>
-                        <Button x:Name="refreshBidButton" Command="{Binding refreshBids}">Refresh</Button>
+                        <Button x:Name="refreshBidButton" Command="{Binding RefreshBids}">Refresh</Button>
                     </ToolBar>
-                    <DataGrid x:Name="bidDataGrid" ItemsSource="{Binding BidList}" AutoGenerateColumns="False">
+                    <DataGrid x:Name="bidDataGrid" ItemsSource="{Binding BidList}" AutoGenerateColumns="False"
+                              SelectedItem="{Binding SelectedBid}" IsReadOnly="True">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Id" Binding="{Binding Path=good_id}"/>
                             <DataGridTextColumn Header="Name" Binding="{Binding Path=goodInformation[0]}"/>
@@ -60,13 +68,18 @@
                             <DataGridTextColumn Header="Start Price" Binding="{Binding Path=goodInformation[2]}"/>
                             <DataGridTextColumn Header="Bid" Binding="{Binding Path=bid}"/>
                         </DataGrid.Columns>
+                        <DataGrid.InputBindings>
+                            <MouseBinding MouseAction="LeftDoubleClick"
+                                          Command="{Binding ShowGoodBids}">
+                            </MouseBinding>
+                        </DataGrid.InputBindings>
                     </DataGrid>
                 </StackPanel>
             </TabItem>
             <TabItem Header="Your Items">
                 <StackPanel>
                     <ToolBar>
-                        <Button x:Name="refreshBGoodsButton" Command="{Binding refreshBGoods}">Refresh</Button>
+                        <Button x:Name="refreshBGoodsButton" Command="{Binding RefreshBGoods}">Refresh</Button>
                     </ToolBar>
                     <DataGrid x:Name="bgoodDataGrid" ItemsSource="{Binding BGoodList}"
                               AutoGenerateColumns="False">

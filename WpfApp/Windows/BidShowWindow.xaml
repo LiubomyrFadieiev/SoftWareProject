@@ -4,8 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp.Windows"
+                xmlns:viewmodels="clr-namespace:WpfApp.ViewModels" 
+        d:DataContext="{d:DesignInstance Type=viewmodels:BidViewModel}"
         mc:Ignorable="d"
-        Title="BidWindow" Height="450" Width="800">
+        Title="BidWindow" Height="450" Width="375">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -13,26 +15,25 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
+    <Grid Style="{StaticResource GridBackground}">
     <Border Margin="20" BorderBrush="Gray" BorderThickness="5">
-        <StackPanel Style="{StaticResource WindowBackground}">
+        <StackPanel Background="Silver">
             <ToolBar>
-                <Button Content="Add/Change Bid"/>
-                <Button Content="See Information"/>
-                <Button Content="Refresh"/>
+                <Button Content="Add/Change Bid" Command="{Binding EditBidCommand}"/>
+                <Button Content="See Information" Command="{Binding SeeInfoCommand}"/>
+                <Button Content="Refresh" Command="{Binding RefreshBidCommand}"/>
                 <Separator/>
-                <Button Content="Buy Item"/>
+                <Button Content="Buy Item" Command="{Binding BuyItemCommand}"/>
             </ToolBar>
-            <DataGrid>
-                <DataGrid x:Name="bidDataGrid" ItemsSource="{Binding BidList}" AutoGenerateColumns="False">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Id" Binding="{Binding Path=good_id}"/>
-                        <DataGridTextColumn Header="Name" Binding="{Binding Path=goodInformation[0]}"/>
-                        <DataGridTextColumn Header="Description" Binding="{Binding Path=goodInformation[1]}"/>
-                        <DataGridTextColumn Header="Start Price" Binding="{Binding Path=goodInformation[2]}"/>
-                        <DataGridTextColumn Header="Bid" Binding="{Binding Path=bid}"/>
-                    </DataGrid.Columns>
-                </DataGrid>
+            <DataGrid x:Name="bidDataGrid" ItemsSource="{Binding BidList}" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding Path=user_id}"/>
+                    <DataGridTextColumn Header="First Name" Binding="{Binding Path=userInformation[0]}"/>
+                    <DataGridTextColumn Header="Last Name" Binding="{Binding Path=userInformation[1]}"/>
+                    <DataGridTextColumn Header="Bid" Binding="{Binding Path=bid}"/>
+                </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
     </Border>
+    </Grid>
 </Window>

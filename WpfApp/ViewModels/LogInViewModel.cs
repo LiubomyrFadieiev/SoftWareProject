@@ -46,25 +46,24 @@ namespace WpfApp.ViewModels
             }
         }
         public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged(string v)
+        protected void OnPropertyChanged(string v)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(v));
         }
-
         // Commands functionality
-        public Action Close;
         public Action LoginSuccess;
         public Action LoginFail;
+        public Action Close;
+        public CloseCommand CloseCommand { get; }
         public LogInCommand logInCommand { get; }
-        public CancelCommand cancelCommand { get; }
 
         // Constructor and misc.
-        public LogInViewModel(IAuthManager authmanager, IAuctionManager aucmanager)
+        public LogInViewModel(IAuthManager authmanager, IAuctionManager aucmanager) : base()
         {
             authManager = authmanager;
             aucManager = aucmanager;
             logInCommand = new LogInCommand(this);
-            cancelCommand = new CancelCommand(this);
+            CloseCommand = new CloseCommand(this);
             Login = "adventuretime@gmail.com";
             Password = "12345678";
         }

@@ -48,7 +48,6 @@ namespace WpfApp.Windows
                 lvm.Close += () =>
                 {
                     DialogResult = false;
-                    this.Close();
                 };
             }
         }

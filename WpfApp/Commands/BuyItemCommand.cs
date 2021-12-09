@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DAL.DTO;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
@@ -6,23 +7,23 @@ using WpfApp.ViewModels;
 
 namespace WpfApp.Commands
 {
-    public class LogOutCommand : ICommand
+    public class BuyItemCommand : ICommand
     {
-        MainWindowViewModel vm;
-        public LogOutCommand(MainWindowViewModel vm)
+        BidViewModel bv;
+        public BuyItemCommand(BidViewModel bv)
         {
-            this.vm = vm;
+            this.bv = bv;
         }
         public event EventHandler CanExecuteChanged;
 
         public bool CanExecute(object parameter)
         {
-            return true;
+            return !bv.BidList.Exists(b => b.bid >= bv.currentBid.bid && b.user_id != bv.currentBid.user_id);
         }
 
         public void Execute(object parameter)
         {
-            vm.LogOut?.Invoke();
+            bv.Buy?.Invoke();
         }
     }
 }

@@ -8,21 +8,56 @@ namespace WpfApp.Commands
 {
     public class OpenItemCommand : ICommand
     {
-        private MainWindowViewModel vm;
-        public OpenItemCommand(MainWindowViewModel vm)
+        private MainWindowViewModel mvm;
+        private BidViewModel bvm;
+        public OpenItemCommand(MainWindowViewModel mvm)
         {
-            this.vm = vm;
+            this.mvm = mvm;
         }
+        public OpenItemCommand(BidViewModel bvm)
+        {
+            this.bvm = bvm;
+        }
+
         public event EventHandler CanExecuteChanged;
 
         public bool CanExecute(object parameter)
         {
-            return true;
+            if (mvm != null)
+            {
+                if (mvm.SelectedTab.Header.ToString() == "Your Bids")
+                {
+                    return mvm.SelectedBid != null;
+                }
+                else if (mvm.SelectedTab.Header.ToString() == "Auctions")
+                {
+                    return mvm.SelectedGood != null;
+                }
+            }
+            if (bvm != null)
+            {
+                return true;
+            }
+            throw new Exception();
         }
 
         public void Execute(object parameter)
         {
-            vm.open?.Invoke();
+            if(mvm != null)
+            {
+                if(mvm.SelectedTab.Header.ToString() == "Your Bids")
+                {
+                    mvm.OpenFromBids?.Invoke();
+                }
+                else if(mvm.SelectedTab.Header.ToString() == "Auctions")
+                {
+                    mvm.OpenFromGoods?.Invoke();
+                }
+            }
+            else if(bvm != null)
+            {
+                bvm.Open?.Invoke();
+            }
         }
     }
 }

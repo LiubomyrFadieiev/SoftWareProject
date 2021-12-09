@@ -32,16 +32,23 @@ namespace WpfApp.Windows
         }
         private void Main_Loaded(object sender, RoutedEventArgs e)
         {
-            vm.open += () =>
+            vm.OpenFromGoods += () =>
             {
-                BidViewModel bidViewModel = vm.ReturnBidModel();
+                BidViewModel bidViewModel = vm.ReturnBidModelFromGoods();
                 BidShowWindow bsw = new BidShowWindow(bidViewModel);
                 bsw.ShowDialog();
             };
-            vm.logOut += () =>
+            vm.OpenFromBids += () =>
+            {
+                BidViewModel bidViewModel = vm.ReturnBidModelFromBids();
+                BidShowWindow bsw = new BidShowWindow(bidViewModel);
+                bsw.ShowDialog();
+            };
+            vm.LogOut += () =>
             {
                 MessageBox.Show("You have been successfully logged out.", "Goodbye!");
-                isLoggedOut = true;
+                App.IsLoggedOut = true;
+                this.Close();
             };
         }
     }

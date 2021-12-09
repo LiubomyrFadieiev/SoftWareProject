@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
+using System.Windows.Controls;
 using System.Windows.Input;
 using WpfApp.Commands;
 
@@ -43,22 +44,27 @@ namespace WpfApp.ViewModels
             }
         }
         public GoodDTO SelectedGood { set; get; }
+        public BidDTO SelectedBid { set; get; }
+        public TabItem SelectedTab { set; get; }
         // Commands functionality
-        public Action open { get; set; }
+        public Action OpenFromGoods { get; set; }
+        public Action OpenFromBids { get; set; }
         public Action Search { get; set; }
-        public Action logOut { get; set; }
-        public SearchCommand searchCommand { get; set; }
-        public OpenItemCommand showGoodBids { get; }
-        public RefreshCommand refreshGoods { get; }
+        public Action LogOut { get; set; }
+        public SearchCommand SearchCommand { get; set; }
+        public OpenItemCommand ShowGoodBids { get; }
+        public RefreshCommand RefreshGoods { get; }
+        public LogOutCommand LogOutCommand { get; }
         public void SearchItems()
         {
-            Type = TrimComboBoxItem(Type); // Type gets "{"System.Windows.Controls.ComboBoxItem: Type"}"
-            if (SearchString.Length == 0 && Type != "")
+            // Type gets "{"System.Windows.Controls.ComboBoxItem: Type"}"
+            if (SearchString.Length == 0 || Type == "")
             {
                 GoodList = auctionManager.GetAllGoods();
             }
             else
             {
+                Type = TrimComboBoxItem(Type);
                 GoodList = auctionManager.GetSearchedGoods(SearchString.Trim(), Type);
             }
         }
@@ -70,9 +76,13 @@ namespace WpfApp.ViewModels
             }
             return cbItem.Split(':')[1].Trim();
         }
-        public BidViewModel ReturnBidModel()
+        public BidViewModel ReturnBidModelFromGoods()
         {
             return new BidViewModel(SelectedGood, user, auctionManager);
+        }
+        public BidViewModel ReturnBidModelFromBids()
+        {
+            return new BidViewModel(user, SelectedBid, auctionManager);
         }
         // Managers and UserDTO
         private readonly IAuctionManager auctionManager;
@@ -115,24 +125,29 @@ namespace WpfApp.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(v));
         }
         // Commands functionality
-        public RefreshCommand refreshBids { get; }
-        public RefreshCommand refreshBGoods { get; }
+        public RefreshCommand RefreshBids { get; }
+        public RefreshCommand RefreshBGoods { get; }
         // Constructor and misc.
         public MainWindowViewModel(UserDTO user, IAuctionManager auctionManager)
         {
             this.user = user;
             this.auctionManager = auctionManager;
 
+            SearchString = "";
+            Type = "";
+
             GoodList = auctionManager.GetAllGoods();
             BidList = auctionManager.GetUsersBids(user);
             BGoodList = auctionManager.GetUsersGoods(user);
 
-            searchCommand = new SearchCommand(this);
-            showGoodBids = new OpenItemCommand(this);
+            SearchCommand = new SearchCommand(this);
+            Search = SearchItems;
+            ShowGoodBids = new OpenItemCommand(this);
+            LogOutCommand = new LogOutCommand(this);
 
-            refreshGoods = new RefreshCommand(this, () => { GoodList = auctionManager.GetAllGoods(); });
-            refreshBids = new RefreshCommand(this, () => { BidList = auctionManager.GetUsersBids(user); });
-            refreshBGoods = new RefreshCommand(this, () => { BGoodList = auctionManager.GetUsersGoods(user); });
+            RefreshGoods = new RefreshCommand(() => { GoodList = auctionManager.GetAllGoods(); });
+            RefreshBids = new RefreshCommand(() => { BidList = auctionManager.GetUsersBids(user); });
+            RefreshBGoods = new RefreshCommand(() => { BGoodList = auctionManager.GetUsersGoods(user); });
             greetings = $"Hello, {user.firstName} {user.lastName}!";
         }
     }

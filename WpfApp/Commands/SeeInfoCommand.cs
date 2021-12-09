@@ -6,10 +6,10 @@ using WpfApp.ViewModels;
 
 namespace WpfApp.Commands
 {
-    public class LogOutCommand : ICommand
+    public class SeeInfoCommand : ICommand
     {
-        MainWindowViewModel vm;
-        public LogOutCommand(MainWindowViewModel vm)
+        BidViewModel vm;
+        public SeeInfoCommand(BidViewModel vm)
         {
             this.vm = vm;
         }
@@ -22,7 +22,7 @@ namespace WpfApp.Commands
 
         public void Execute(object parameter)
         {
-            vm.LogOut?.Invoke();
+            vm.SeeInfo?.Invoke();
         }
     }
 }

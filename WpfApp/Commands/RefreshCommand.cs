@@ -6,13 +6,12 @@ using WpfApp.ViewModels;
 
 namespace WpfApp.Commands
 {
+    // When we have one simple command that does not depent on view info (like refresh DaraGrids)
     public class RefreshCommand : ICommand
     {
-        MainWindowViewModel vm;
         Action execute;
-        public RefreshCommand(MainWindowViewModel vm, Action execute)
+        public RefreshCommand(Action execute)
         {
-            this.vm = vm;
             this.execute = execute;
         }
         public event EventHandler CanExecuteChanged;

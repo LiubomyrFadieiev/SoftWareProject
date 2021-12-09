@@ -4,6 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp.Windows"
+                xmlns:viewmodels="clr-namespace:WpfApp.ViewModels" 
+        d:DataContext="{d:DesignInstance Type=viewmodels:LogInViewModel}"
         mc:Ignorable="d"
         Title="LogIn" Height="450" Width="800"
         AllowsTransparency="True" WindowStyle="None" 
@@ -19,11 +21,11 @@
         </ResourceDictionary>
     </Window.Resources>
     <Window.InputBindings>
-        <KeyBinding Command="{Binding cancelCommand}" Key="Esc"/>
+        <KeyBinding Command="{Binding CloseCommand}" Key="Esc"/>
         <KeyBinding Command="{Binding logInCommand}" Key="Enter"/>
     </Window.InputBindings>
 
-    <Grid>
+    <Grid Style="{StaticResource GridBackground}">
         <Grid.RowDefinitions>
             <RowDefinition Height="10*"/>
             <RowDefinition Height="20*"/>
@@ -60,7 +62,7 @@
             <TextBox Grid.Column="1" x:Name="logIn" Style="{StaticResource WinterBox}" Text="{Binding Login}"/>
             <PasswordBox PasswordChar="x" x:Name="password" Grid.Column="1" Grid.Row="1" Style="{StaticResource WinterBox}" PasswordChanged="password_PasswordChanged"/>
             <Button Grid.Row="3" Content="Log in" Command="{Binding logInCommand}"/>
-            <Button Grid.Row="3" Grid.Column="1" Content="Cancel" Command="{Binding cancelCommand}"/>
+            <Button Grid.Row="3" Grid.Column="1" Content="Cancel" Command="{Binding CloseCommand}"/>
         </Grid>
     </Grid>
 </Window>

@@ -37,7 +37,7 @@ namespace DAL.DTO
         }
         public override string ToString()
         {
-            return $"Name: {goodsName};\nInformation: {goodsDesc};\nStart Price: {startPrice}";
+            return $"Name: {goodsName}\nInformation: {goodsDesc}\nStart Price: {startPrice}";
         }
     }
 }

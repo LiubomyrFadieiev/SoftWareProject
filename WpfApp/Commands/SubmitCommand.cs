@@ -2,27 +2,27 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
-using WpfApp.ViewModels;
+using WpfApp.Models;
 
 namespace WpfApp.Commands
 {
-    public class LogOutCommand : ICommand
+    public class SubmitCommand : ICommand
     {
-        MainWindowViewModel vm;
-        public LogOutCommand(MainWindowViewModel vm)
+        BidWithValidation bv;
+        public SubmitCommand(BidWithValidation bv)
         {
-            this.vm = vm;
+            this.bv = bv;
         }
         public event EventHandler CanExecuteChanged;
 
         public bool CanExecute(object parameter)
         {
-            return true;
+            return bv["Bid"] == String.Empty;
         }
 
         public void Execute(object parameter)
         {
-            vm.LogOut?.Invoke();
+            bv.Submit?.Invoke();
         }
     }
 }
