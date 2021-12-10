@@ -1,8 +1,5 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Style TargetType="Window">
-        <Setter Property="Icon" Value="\Images\icon.png" />
-    </Style>
     <Style x:Key="GridBackground">
         <Setter Property="Grid.Background">
             <Setter.Value>
@@ -32,6 +29,12 @@
             <Trigger Property="Validation.HasError" Value="True">
                 <Setter Property="ItemsControl.BorderThickness" Value="6" />
                 <Setter Property="ItemsControl.BorderBrush" Value="#ff6961" />
+            </Trigger>
+            <Trigger Property="Validation.HasError" Value="True">
+                <Setter Property="ItemsControl.ToolTip"
+                Value="{Binding RelativeSource={RelativeSource Self},
+                    Path=(Validation.Errors)[0].ErrorContent}" />
+                <Setter Property="ItemsControl.Foreground" Value="Red" />
             </Trigger>
         </Style.Triggers>
     </Style>

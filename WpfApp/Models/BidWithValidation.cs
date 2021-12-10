@@ -35,6 +35,16 @@ namespace WpfApp.Models
     //}
     public class BidWithValidation : IDataErrorInfo, INotifyPropertyChanged
     {
+        private double bid;
+        public double Bid
+        {
+            get => bid;
+            set
+            {
+                bid = value;
+                OnPropertyChanged(nameof(Bid));
+            }
+        }
         private IAuctionManager manager;
         private int good_id;
         private int user_id;
@@ -49,16 +59,7 @@ namespace WpfApp.Models
                 OnPropertyChanged(nameof(GoodName));
             }
         }
-        private double bid;
-        public double Bid
-        {
-            get => bid;
-            set
-            {
-                bid = value;
-                OnPropertyChanged(nameof(Bid));
-            }
-        }
+
 
         public string this[string columnName]
         {

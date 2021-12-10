@@ -7,7 +7,7 @@
         xmlns:viewmodels="clr-namespace:WpfApp.ViewModels" 
         d:DataContext="{d:DesignInstance Type=viewmodels:MainWindowViewModel}"
         mc:Ignorable="d"
-        Title="Trading Company" Height="450" Width="800">
+        Title="Trading Company" Height="450" Width="800" Icon="\Images\icon.png">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
